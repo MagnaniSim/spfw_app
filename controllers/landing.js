@@ -17,6 +17,6 @@ exports.show_user = function(req, res, next) {
             id : req.params.user_id
         }
     }).then(user => {
-        res.render('user', { user : user });
+        res.render('landing', { user : user });
     });
 }
