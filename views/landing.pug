@@ -4,6 +4,8 @@ html(lang='en')
   include common/head.pug
   +head("Starter MVP")
   body
+    include common/navbar.pug
+    +navbar(user)
     h1= title
     p Welcome to #{title}
     include common/footer.pug
