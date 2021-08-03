@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    var Users = sequelize.define('User', {
+    var Users = sequelize.define('Users', {
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         is_admin: {
             type: DataTypes.BOOLEAN,
-            allowNull: true,
+            allowNull: true
         }
     })
     return Users;

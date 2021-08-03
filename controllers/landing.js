@@ -2,12 +2,12 @@
 const models = require('../models');
 
 exports.get_landing = function(req, res, next) {
-    res.render('landing', { title: 'Express' });
+    res.render('landing', { title: 'Landing' , user: req.user });
 }
 
 exports.show_users = function(req, res, next) {
     return models.Users.findAll().then(users => {
-        res.render('landing', { title: 'Express', users: users});
+        res.render('landing', { title: 'Users', users: users});
     })
 }
 

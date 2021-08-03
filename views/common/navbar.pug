@@ -6,14 +6,14 @@ mixin navbar(user)
             ul.navbar-nav.mr-auto
                 li.nav-item
                     a.nav-link(href="/") Home
-//        div.navbar-right
-//            if user
-//                span.navbar-text Hello #{user.email}!
-//        div.navbar-right
-//            ul.navbar-nav.mr-auto
-//                li.nav-item
-//                    a.nav-link(href="/signup") Sign up
-//                li.nav-item
-//                  a.nav-link(href="/login") Login
-//                li.nav-item
-//                    a.nav-link(href="/logout") Logout
+        div.navbar-right
+            if user
+                span.navbar-text Hello #{user.email}!
+        div.navbar-right
+            ul.navbar-nav.mr-auto
+                li.nav-item
+                    a.nav-link(href="/signup") Sign up
+                li.nav-item
+                  a.nav-link(href="/login") Login
+                li.nav-item
+                    a.nav-link(href="/logout") Logout
