@@ -14,7 +14,7 @@ const validateCreateUserFields = function(errors, req) {
     }
 }
 
-exports.validateUser = function(errors, req) {
+exports.validateUserSignup = function(errors, req) {
     return new Promise(function(resolve, reject) {
         validateCreateUserFields(errors, req);
         return models.Users.findOne({

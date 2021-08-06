@@ -4,10 +4,14 @@ const passport = require('passport');
 let flash = require('connect-flash');
 const myPassport = require('../passport_setup')(passport);
 const {isEmpty} = require('lodash');
-const { validateUser } = require('../validators/signup');
+const { validateUserSignup } = require('../validators/signup');
 
 exports.show_login = function(req, res, next) {
     res.render('user/login', { formData: {}, errors: {} });
+}
+
+const rerender_login = function(errors, req, res, next) {
+    res.render('user/login', { formData: req.body, errors: errors});
 }
 
 exports.show_signup = function(req, res, next) {
@@ -24,7 +28,7 @@ const generateHash = function(password) {
 
 exports.signup = function(req, res, next) {
     let errors = {};
-    return validateUser(errors, req).then(errors => {
+    return validateUserSignup(errors, req).then(errors => {
         if (!isEmpty(errors)) {
             rerender_signup(errors, req, res, next);
         } else {
@@ -62,5 +66,5 @@ exports.login = function(req, res, next) {
 exports.logout = function(req, res, next) {
     req.logout();
     req.session.destroy();
-    res.redirect('/');
+    res.redirect('/login');
 }
