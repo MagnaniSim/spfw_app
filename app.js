@@ -7,12 +7,14 @@ var logger = require('morgan');
 let passport = require('passport');
 let flash = require('connect-flash')
 let session = require('express-session');
+require('dotenv').config();
 require('./passport_setup')(passport);
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+app.disable("x-powered-by");
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,7 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({ secret: 'secret session'}));
+app.use(session({ secret: process.env.SESSION_SECRET}));
 app.use(passport.initialize());
 app.use(passport.session());
 

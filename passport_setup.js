@@ -25,7 +25,6 @@ module.exports = function(passport) {
     });
     passport.use(new LocalStrategy({
             usernameField: 'email',
-            passwordField: 'password',
             passReqToCallback: true
         },
         function(req, email, password, done) {
