@@ -28,9 +28,9 @@ const generateHash = function(password) {
 
 exports.signup = function(req, res, next) {
     let errors = {};
-    return validateUserSignup(errors, req).then(errors => {
-        if (!isEmpty(errors)) {
-            rerender_signup(errors, req, res, next);
+    return validateUserSignup(errors, req).then(errors_ret => {
+        if (!isEmpty(errors_ret)) {
+            rerender_signup(errors_ret, req, res, next);
         } else {
             return models.Users.findOne({
                 where: {
