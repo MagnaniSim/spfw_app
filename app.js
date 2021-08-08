@@ -2,7 +2,8 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+var logger = require('./util/logger');
+var morgan = require('morgan');
 
 let passport = require('passport');
 let flash = require('connect-flash')
@@ -19,8 +20,8 @@ app.disable("x-powered-by");
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-app.use(flash())
-app.use(logger('dev'));
+app.use(flash());
+app.use(morgan('dev', { "stream": logger.stream }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -49,4 +50,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+logger.info('Starting App');
 module.exports = app;
