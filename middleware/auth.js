@@ -9,9 +9,9 @@ exports.is_logged_in = function(req, res, next) {
 }
 
 exports.is_admin = function(req, res, next) {
-    if (req.user && req.user.is_admin == true) {
-        next();
-    } else {
+    if (!req.user || !req.user.is_admin) {
         next(createError(404, "Not Found"));
+    } else {
+        next();
     }
 }
