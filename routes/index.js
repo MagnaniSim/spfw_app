@@ -14,5 +14,7 @@ router.get('/logout', user.logout);
 
 /* GET home page. */
 router.get('/', auth.is_logged_in, landing.get_landing);
+router.post('/', landing.search);
+
 
 module.exports = router;
