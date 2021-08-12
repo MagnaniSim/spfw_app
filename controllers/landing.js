@@ -46,7 +46,7 @@ exports.search = function(req, res, next) {
                     return rerender_landing(errors_ret, req, res, next);
                 }
                 logger.info('professionals: ', professionals);
-                res.redirect('/results');
+                res.render('results', { formData: req.body, professionals: professionals});
             }).catch(err => {
                 logger.info('Search error: ', err);
                 logger.info('req = ', req);
