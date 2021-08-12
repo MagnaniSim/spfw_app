@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
         is_admin: {
             type: DataTypes.BOOLEAN,
             allowNull: true
+        },
+        is_pro: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true
         }
     })
 };
