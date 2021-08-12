@@ -1,0 +1,38 @@
+
+doctype html
+html(lang='en')
+    include common/head.pug
+    +head("Search Professionals")
+    body
+        header
+            include common/navbar.pug
+            +navbar(user)
+            .container
+                .row
+                    .col-sm-12.offset-md-2.col-md-8
+                        .jumbotron
+                            .row
+                                .col-sm-12.col-md-12.col-xs-12
+                                    if (professionals)
+                                        h2.text-center Results
+                                        table.table.table-hover.table-striped.table-bordered
+                                            thead
+                                                tr
+                                                    th Name
+                                                    th Surname
+                                                    th Phone Number
+                                                    th Profession
+                                                    th Description
+                                            tbody
+                                                each pro in professionals
+                                                    tr
+                                                        td #{pro.name}
+                                                        td #{pro.surname}
+                                                        td #{pro.phonenumber}
+                                                        td #{pro.profession}
+                                                        td #{pro.description}
+                                    else
+                                        h2.text-center Sorry, No results found
+
+        include common/footer.pug
+        +footer()

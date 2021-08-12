@@ -8,7 +8,7 @@ const validateSearchField = function(errors, req) {
 
 exports.validateSearch = function(errors, req) {
     return new Promise(function(resolve, reject) {
-        validateSearchField(errors, req);
+            validateSearchField(errors, req);
             return resolve(errors);
         })
 }

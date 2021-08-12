@@ -34,19 +34,19 @@ exports.search = function(req, res, next) {
     let errors = {};
     return validateSearch(errors, req).then(errors_ret => {
         if (!isEmpty(errors_ret)) {
-            rerender_landing(errors_ret, req, res, next);
+            return rerender_landing(errors_ret, req, res, next);
         } else {
             return models.Professionals.findAll({
                 where: {
                     'profession' : req.body.profession
                 },
             }).then(professionals => {
-                if ((professionals == null) || (professionals == '')) {
-                    errors["professionals"] = "No professionals found";
+                if (professionals == null) {
+                    errors["professionals"] = "Error in finding professionals";
                     return rerender_landing(errors_ret, req, res, next);
                 }
                 logger.info('professionals: ', professionals);
-                res.redirect('/');
+                res.redirect('/results');
             }).catch(err => {
                 logger.info('Search error: ', err);
                 logger.info('req = ', req);
