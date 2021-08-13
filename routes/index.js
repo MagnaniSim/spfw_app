@@ -3,6 +3,7 @@ var router = express.Router();
 
 let landing = require('../controllers/landing');
 let user = require('../controllers/user');
+let results = require('../controllers/results');
 let auth = require('../middleware/auth');
 
 router.get('/login', user.show_login);
@@ -12,7 +13,11 @@ router.post('/signup', user.signup);
 router.post('/logout', user.logout);
 router.get('/logout', user.logout);
 
+router.get('/results', auth.is_logged_in, results.show_results);
+
 /* GET home page. */
 router.get('/', auth.is_logged_in, landing.get_landing);
+router.post('/', auth.is_logged_in, landing.search);
+
 
 module.exports = router;

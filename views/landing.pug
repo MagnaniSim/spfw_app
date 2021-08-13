@@ -2,11 +2,24 @@
 doctype html
 html(lang='en')
   include common/head.pug
-  +head("Blog")
+  +head("Search Professionals")
   body
-    include common/navbar.pug
-    +navbar(user)
-    h1= title
-    p Welcome to #{title}
-    include common/footer.pug
-    +footer()
+      header
+          include common/navbar.pug
+          +navbar(user)
+          .container
+              .row
+                  .col-sm-12.offset-md-2.col-md-8
+                      .jumbotron
+                          h2.text-center Search Professionals
+                          .row
+                              .col-sm-12.col-md-12.col-xs-12
+                                  form(action='/', method='POST')
+                                      div.formgroup
+                                          input(placeholder='Please enter the profession', required=true, name='profession', type='', value='').form-control
+                                          if (errors && errors.professionals)
+                                              p.small.text-danger #{errors.professionals}
+                                          button.mt-3.btn.btn-primary(type='submit') Search
+
+      include common/footer.pug
+      +footer()
