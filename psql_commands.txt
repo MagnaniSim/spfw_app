@@ -1,2 +1,16 @@
-Start service:
+Create postgresql role and table:
+CREATE ROLE "spfwapp-dbuser-debug" WITH LOGIN PASSWORD "sPFw@pPd3b";
+CREATE DATABASE "spfwapp-db-debug";
+CREATE ROLE "spfwapp-dbuser-prod" WITH LOGIN PASSWORD "sPFw@sPFw@pPpr0d";
+CREATE DATABASE "spfwapp-db-prod";
+
+
+Start postgresql service:
 /home/linuxbrew/.linuxbrew/opt/postgresql/bin/postgres -D /home/linuxbrew/.linuxbrew/var/postgres
+
+Admin user insertion:
+INSERT INTO "Users"("id", "password", "email", "is_admin", "is_pro", "createdAt", "updatedAt") VALUES ('2bca51c7-a7f5-40e3-b77b-988221a869fa', '$2b$08$nqiaFuznnQ4C4lYSn5ueqOkEqBLOxSPXB.662vDJt4lRIF5RusIRm', 'admin@admin.com', true, false, '2021-08-08 12:07:59.554+01', '2021-08-08 12:07:59.554+01');
+(PWD: IAm@dm1n!)
+
+Professional user insertion:
+INSERT INTO "Professionals"("id", "firstName", "lastName", "userId", "phoneNumber", "profession", "createdAt", "updatedAt") VALUES ('b883602e-bace-48de-973b-3605aeb4ccff', 'John', 'Doe', 'b883602e-bace-48de-973b-3605aeb4ccff', '012345678', 'plumber', '2021-08-08 12:07:59.554+01', '2021-08-08 12:07:59.554+01');

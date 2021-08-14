@@ -14,22 +14,6 @@ const rerender_landing = function(errors, req, res, next) {
     res.render('landing', { formData: req.body, errors: errors});
 }
 
-exports.show_users = function(req, res, next) {
-    return models.Users.findAll().then(users => {
-        res.render('landing', { title: 'Users', users: users});
-    })
-}
-
-exports.show_user = function(req, res, next) {
-    return models.Users.findOne({
-        where : {
-            id : req.params.user_id
-        }
-    }).then(user => {
-        res.render('landing', { user : user });
-    });
-}
-
 exports.search = function(req, res, next) {
     let errors = {};
     return validateSearch(errors, req).then(errors_ret => {

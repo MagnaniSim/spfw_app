@@ -5,6 +5,7 @@ let flash = require('connect-flash');
 const myPassport = require('../passport_setup')(passport);
 const {isEmpty} = require('lodash');
 const { validateUserSignup } = require('../validators/signup');
+const logger = require("../util/logger");
 
 exports.show_login = function(req, res, next) {
     res.render('user/login', { formData: {}, errors: {} });
@@ -67,4 +68,66 @@ exports.logout = function(req, res, next) {
     req.logout();
     req.session.destroy();
     res.redirect('/login');
+}
+
+exports.show_users = function(req, res, next) {
+    return models.Users.findAll({
+        where : {
+            is_admin: false
+        }
+    }).then(users => {
+        res.render('user/users', {user: req.user, users_result: users});
+    })
+}
+
+exports.show_user = function(req, res, next) {
+    return models.Users.findOne({
+        where : {
+            id : req.params.user_id
+        }
+    }).then(user => {
+        res.render('user/user', { user : req.user, user_result: user });
+    });
+}
+
+exports.show_edit_user = function(req, res, next) {
+    return models.Users.findOne({
+        where : {
+            id : req.params.user_id
+        }
+    }).then(user => {
+        res.render('user/edit_user', { user : req.user, user_result: user });
+    });
+}
+
+exports.edit_user = function(req, res, next) {
+    return models.Users.update({
+        email: req.body.user_email
+    }, {
+        where: {
+            id: req.params.user_id
+        }
+    }).then(result => {
+        res.redirect('/user/' + req.params.user_id);
+    })
+}
+
+exports.delete_user = function(req, res, next) {
+    return models.Users.destroy({
+        where: {
+            id: req.params.user_id
+        }
+    }).then(result => {
+        res.redirect('/users');
+    })
+}
+
+exports.delete_user_json = function(req, res, next) {
+    return models.Users.destroy({
+        where: {
+            id: req.params.user_id
+        }
+    }).then(result => {
+        res.send({ msg: "Success" });
+    })
 }
