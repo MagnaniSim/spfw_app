@@ -4,7 +4,7 @@ const passport = require('passport');
 let flash = require('connect-flash');
 const myPassport = require('../passport_setup')(passport);
 const {isEmpty} = require('lodash');
-const { validateUserSignup } = require('../validators/signup');
+const { validateUserSignup, validateUserUpdate } = require('../validators/signup');
 const logger = require("../util/logger");
 
 exports.show_login = function(req, res, next) {
@@ -100,15 +100,32 @@ exports.show_edit_user = function(req, res, next) {
     });
 }
 
-exports.edit_user = function(req, res, next) {
-    return models.Users.update({
-        email: req.body.user_email
-    }, {
-        where: {
-            id: req.params.user_id
+const rerender_edit_user = function(errors, req, res, next) {
+    return models.Users.findOne({
+        where : {
+            id : req.params.user_id
         }
-    }).then(result => {
-        res.redirect('/user/' + req.params.user_id);
+    }).then(user => {
+        res.render('user/edit_user', {user: req.user, user_result: user, errors: errors});
+    })
+}
+
+exports.edit_user = function(req, res, next) {
+    let errors = {};
+    return validateUserUpdate(errors, req).then(errors_ret => {
+        if (!isEmpty(errors_ret)) {
+            rerender_edit_user(errors_ret, req, res, next);
+        } else {
+            return models.Users.update({
+                email: req.body.email
+            }, {
+                where: {
+                    id: req.params.user_id
+                }
+            }).then(result => {
+                res.redirect('/user/' + req.params.user_id);
+            })
+        }
     })
 }
 
