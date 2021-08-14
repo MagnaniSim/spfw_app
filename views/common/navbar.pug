@@ -17,3 +17,6 @@ mixin navbar(user)
                   a.nav-link(href="/login") Login
                 li.nav-item
                     a.nav-link(href="/logout") Logout
+                if user
+                    if user.is_admin
+                        a.nav-link(href="/users/") Admin
