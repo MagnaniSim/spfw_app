@@ -33,11 +33,7 @@ exports.signup = function(req, res, next) {
         if (!isEmpty(errors_ret)) {
             rerender_signup(errors_ret, req, res, next);
         } else {
-            return models.Users.findOne({
-                where: {
-                    is_admin: true
-                }
-            }).then(user => {
+            return new Promise(function(resolve, reject) {
                 let newUser;
                 newUser = models.Users.build({
                     email: req.body.email,

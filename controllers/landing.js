@@ -6,8 +6,28 @@ const passport = require("passport");
 const createError = require("http-errors");
 const logger = require("../util/logger");
 
+const get_pro_details = function(req,res,next) {
+    return models.Users.findOne({
+        where: {
+            'email' : req.user
+        },
+    }).then(user => {
+        if (user == null) {
+            next(createError(404));
+        } else {
+            // continua qui
+        }
+        logger.info('professionals: ', professionals);
+        res.render('results', { formData: req.body, professionals: professionals});
+    }).catch(err => {
+        logger.info('Search error: ', err);
+        logger.info('req = ', req);
+        next(createError(404));
+    })
+}
+
 exports.get_landing = function(req, res, next) {
-    res.render('landing', { title: 'Landing' , user: req.user });
+    res.render('landing', {user: req.user});
 }
 
 const rerender_landing = function(errors, req, res, next) {
@@ -16,7 +36,7 @@ const rerender_landing = function(errors, req, res, next) {
 
 exports.show_users = function(req, res, next) {
     return models.Users.findAll().then(users => {
-        res.render('landing', { title: 'Users', users: users});
+        res.render('landing', {title: 'Users', users: users});
     })
 }
 

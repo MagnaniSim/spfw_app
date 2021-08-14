@@ -24,12 +24,12 @@ html(lang='en')
                                             if (errors && errors.password)
                                                 p.small.text-danger #{errors.password}
                                         div.formgroup
-                                            input(type='checkbox', name='procheck', value='')
+                                            input(type='checkbox', name='procheck', value='on')
                                             |  I am a professional
                                         div.formgroup
-                                                    button.mt-3.btn.btn-primary(type='submit') Sign up
-                                                    p.mt-2.mb-0
-                                                        | Already have an account? #[a(href="/login") Log in here].
+                                            button.mt-3.btn.btn-primary(type='submit') Sign up
+                                            p.mt-2.mb-0
+                                                | Already have an account? #[a(href="/login") Log in here].
 
         include ../common/footer.pug
         +footer()
