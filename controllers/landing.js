@@ -8,29 +8,33 @@ const logger = require("../util/logger");
 
 const get_pro_details = function(req,res,next) {
     return models.Users.findOne({
+        include: [{
+            model: models.Professionals,
+        }],
         where: {
-            'email' : req.user
+            'email' : req.user.email
         },
-    }).then(user => {
-        if (user == null) {
+    }).then(userData => {
+        if (userData == null) {
             next(createError(404));
         } else {
-            // continua qui
+            logger.info('userData.dataValues: ', userData.dataValues);
+            // Redirect if professional here
         }
-        logger.info('professionals: ', professionals);
-        res.render('results', { formData: req.body, professionals: professionals});
     }).catch(err => {
-        logger.info('Search error: ', err);
+        logger.info('Search error User: ', err);
         logger.info('req = ', req);
         next(createError(404));
     })
 }
 
 exports.get_landing = function(req, res, next) {
-    res.render('landing', {user: req.user});
+    get_pro_details(req,res,next);
+    res.render('landing', {user: req.user, userData: req.userData});
 }
 
 const rerender_landing = function(errors, req, res, next) {
+    get_pro_details(req,res,next);
     res.render('landing', { formData: req.body, user: req.user, errors: errors});
 }
 
