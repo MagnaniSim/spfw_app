@@ -14,6 +14,7 @@ router.post('/logout', user.logout);
 router.get('/logout', user.logout);
 
 router.get('/results', auth.is_logged_in, results.show_results);
+router.post('/proupdate', auth.is_logged_in, landing.update_pro, landing.get_landing);
 
 /* GET home page. */
 router.get('/', auth.is_logged_in, landing.get_landing);
