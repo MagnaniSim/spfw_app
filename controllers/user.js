@@ -45,6 +45,7 @@ exports.signup = function(req, res, next) {
                     is_admin: false
                 });
                 return newUser.save().then(result => {
+                    logger.info("User signup: id:"+ newUser.id + " email:" + newUser.email);
                     passport.authenticate('local', {
                         successRedirect: "/",
                         failureRedirect: "/signup",
@@ -57,6 +58,7 @@ exports.signup = function(req, res, next) {
 }
 
 exports.login = function(req, res, next) {
+    logger.info("User login: email:"+ req.body.email);
     passport.authenticate('local', {
         successRedirect: "/",
         failureRedirect: "/login",
@@ -123,6 +125,7 @@ exports.edit_user = function(req, res, next) {
                     id: req.params.user_id
                 }
             }).then(result => {
+                logger.info("User update: id:"+ req.params.user_id + " email:" + req.body.email);
                 res.redirect('/user/' + req.params.user_id);
             })
         }
@@ -135,6 +138,7 @@ exports.delete_user = function(req, res, next) {
             id: req.params.user_id
         }
     }).then(result => {
+        logger.info("User delete: id:"+ req.params.user_id);
         res.redirect('/users');
     })
 }
@@ -145,6 +149,7 @@ exports.delete_user_json = function(req, res, next) {
             id: req.params.user_id
         }
     }).then(result => {
+        logger.info("User delete: id:"+ req.params.user_id);
         res.send({ msg: "Success" });
     })
 }
