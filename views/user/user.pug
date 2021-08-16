@@ -1,0 +1,33 @@
+doctype html
+html(lang='en')
+  include ../common/head.pug
+  +head("User")
+  body
+    header
+      include ../common/navbar.pug
+      +navbar(user)
+      .container
+        .row
+          .col-sm-12.offset-md-2.col-md-8
+          .jumbotron
+            .row
+              .col-sm-12.col-md-12.col-xs-12
+                h2.text-center User
+                table.table.table-hover.table-striped.table-bordered
+                  thead
+                    tr
+                      th(scope="col") Email
+                      th(scope="col") Edit
+                      th(scope="col") Delete
+                    tr
+                  tbody
+                    tr(id=user_result.id)
+                      td
+                        span #{user_result.email}
+                      td
+                        a(href="/user/" + user_result.id + "/edit") Edit
+                      td
+                        form(action="/user/" + user_result.id + "/delete", method="POST")
+                          button(type="submit").btn.btn-primary Delete
+    include ../common/footer.pug
+    +footer()

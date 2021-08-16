@@ -1,4 +1,6 @@
 let createError = require('http-errors')
+const models = require("../models");
+const logger = require("../util/logger");
 
 exports.is_logged_in = function(req, res, next) {
     if (!req.user) {
@@ -9,9 +11,26 @@ exports.is_logged_in = function(req, res, next) {
 }
 
 exports.is_admin = function(req, res, next) {
-    if (!req.user || !req.user.is_admin) {
-        next(createError(404, "Not Found"));
+    if(!req.user){
+        logger.warn("Invalid admin access attempt: id: unknown");
+        res.redirect('/');
+    } else if(!req.user.is_admin){
+            logger.warn("Invalid admin access attempt: id: " + req.user.id);
+            res.redirect('/');
     } else {
-        next();
+        // confirm user is an administrator
+        let user;
+        user = models.Users.findOne({
+            where: {
+                id: req.user.id
+            }
+        })
+        if (!user && !user.is_admin) {
+            logger.warn("Invalid admin access attempt: id: " + req.user.id);
+            res.redirect('/');
+        } else {
+            logger.info("Admin access: id: " + req.user.id);
+            next();
+        }
     }
 }

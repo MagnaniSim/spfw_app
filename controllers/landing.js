@@ -11,7 +11,7 @@ exports.get_landing = function(req, res, next) {
 }
 
 const rerender_landing = function(errors, req, res, next) {
-    res.render('landing', { formData: req.body, errors: errors});
+    res.render('landing', { formData: req.body, user: req.user, errors: errors});
 }
 
 exports.show_users = function(req, res, next) {
@@ -46,7 +46,7 @@ exports.search = function(req, res, next) {
                     return rerender_landing(errors_ret, req, res, next);
                 }
                 logger.info('professionals: ', professionals);
-                res.render('results', { formData: req.body, professionals: professionals});
+                res.render('results', { formData: req.body, user: req.user, professionals: professionals});
             }).catch(err => {
                 logger.info('Search error: ', err);
                 logger.info('req = ', req);

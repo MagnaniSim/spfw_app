@@ -1,0 +1,24 @@
+doctype html
+html(lang='en')
+  include ../common/head.pug
+  +head("Edit Lead")
+  body
+    header
+      include ../common/navbar.pug
+      +navbar(user)
+      .container
+        .row
+          .col-sm-12.offset-md-2.col-md-8
+          .jumbotron
+            .row
+              .col-sm-12.col-md-12.col-xs-12
+                h2.text-center Update User
+                form(action="/user/"+user_result.id+"/edit", method="POST")
+                  div.formgroup
+                    label.small.mb-1.mt-3 Email:
+                    input(name="email", type="email", placeholder="Enter your email address", value=user_result.email).form-control
+                    if (errors && errors.email)
+                      p.small.text-danger #{errors.email}
+                    button(type="submit").btn.btn-primary Update
+    include ../common/footer.pug
+    +footer()
