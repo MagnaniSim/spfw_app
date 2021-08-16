@@ -20,17 +20,27 @@ html(lang='en')
                                           if (errors && errors.professionals)
                                               p.small.text-danger #{errors.professionals}
                                           button.mt-3.btn.btn-primary(type='submit') Search
-                                      if (userData.is_pro)
-                                          h2.text-center Update Data
-                                          .row
-                                              .col-sm-12.col-md-12.col-xs-12
-                                                  form(action='/proupdate', method='POST')
-                                                      input(placeholder='Name', required=true, name='proName', type='', value='').form-control
-                                                      input(placeholder='Surname', required=true, name='proSurname', type='', value='').form-control
-                                                      input(placeholder='Profession', required=true, name='proProfession', type='', value='').form-control
-                                                      input(placeholder='Phone number', required=true, name='proNumber', type='', value='').form-control
-                                                      input(placeholder='Description', required=false, name='proDescription', type='', value='').form-control
-                                                      button.mt-3.btn.btn-primary(type='submit') Update
+                                  if (userData.is_pro)
+                                      h2.text-center Update Data
+                                      .row
+                                          .col-sm-12.col-md-12.col-xs-12
+                                              form(action='/proupdate', method='POST')
+                                                  input(placeholder='Name', required=true, name='proName', type='', value=((userData.Professional && userData.Professional.firstName)?userData.Professional.firstName:'')).form-control
+                                                  if (errors && errors.proName)
+                                                      p.small.text-danger #{errors.proName}
+                                                  input(placeholder='Surname', required=true, name='proSurname', type='', value=((userData.Professional && userData.Professional.lastName)?userData.Professional.lastName:'')).form-control
+                                                  if (errors && errors.proSurname)
+                                                      p.small.text-danger #{errors.proSurname}
+                                                  input(placeholder='Profession', required=true, name='proProfession', type='', value=((userData.Professional && userData.Professional.profession)?userData.Professional.profession:'')).form-control
+                                                  if (errors && errors.proProfession)
+                                                      p.small.text-danger #{errors.proProfession}
+                                                  input(placeholder='Phone number', required=true, name='proNumber', type='', value=((userData.Professional && userData.Professional.phoneNumber)?userData.Professional.phoneNumber:'')).form-control
+                                                  if (errors && errors.proNumber)
+                                                      p.small.text-danger #{errors.proNumber}
+                                                  input(placeholder='Description', required=false, name='proDescription', type='', value=((userData.Professional && userData.Professional.description)?userData.Professional.description:'')).form-control
+                                                  if (errors && errors.proDescription)
+                                                      p.small.text-danger #{errors.proDescription}
+                                                  button.mt-3.btn.btn-primary(type='submit') Update
 
       include common/footer.pug
       +footer()

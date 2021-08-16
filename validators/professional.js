@@ -12,7 +12,7 @@ const validateProFields = function(errors, req) {
     if (!validator.isAlpha(req.body.proProfession)) {
         errors["proProfession"] = "Please use only letters.";
     }
-    if (!validator.isAlpha(req.body.proDescription)) {
+    if (!validator.matches(req.body.proDescription, /^[A-Za-z0-9\s]+$/)) {
         errors["proDescription"] = "Please use only letters.";
     }
     if (!validator.isNumeric(req.body.proNumber)) {
