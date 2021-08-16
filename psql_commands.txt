@@ -1,2 +1,0 @@
-Start service:
-/home/linuxbrew/.linuxbrew/opt/postgresql/bin/postgres -D /home/linuxbrew/.linuxbrew/var/postgres

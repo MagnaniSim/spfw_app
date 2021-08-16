@@ -26,6 +26,10 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
+const { Professionals, Users } = sequelize.models;
+Users.hasOne(Professionals);
+Professionals.belongsTo(Users);
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 

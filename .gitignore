@@ -1,3 +1,5 @@
 .env
+psql_commands.txt
 logs/spfw_app.log
+node_modules/
 
