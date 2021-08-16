@@ -38,6 +38,7 @@ exports.signup = function(req, res, next) {
                 newUser = models.Users.build({
                     email: req.body.email,
                     password: generateHash(req.body.password),
+                    is_pro: req.body.procheck === 'on',
                     is_admin: false
                 });
                 return newUser.save().then(result => {
