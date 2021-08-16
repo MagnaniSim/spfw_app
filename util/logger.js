@@ -7,19 +7,17 @@ if ( !fs.existsSync( logDir ) ) {
 }
 
 var logger = new winston.createLogger({
+    format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.json()
+    ),
     transports: [
         new winston.transports.File({
             level: process.env.LOG_LEVEL_FILE,
             filename: './logs/spfw_app.log',
-            handleExceptions: true,
-            json: false,
-            colorize: false
         }),
         new winston.transports.Console({
             level: process.env.LOG_LEVEL_CONSOLE,
-            handleExceptions: true,
-            json: false,
-            colorize: false
         })
     ],
     exitOnError: false

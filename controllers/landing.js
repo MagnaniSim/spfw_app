@@ -41,7 +41,7 @@ exports.get_landing = function(req, res, next) {
 const rerender_landing = function(errors, req, res, next) {
     let userDataValues = {};
     get_pro_details(userDataValues, req,res,next).then(userDataValues_ret => {
-        res.render('landing', {user: req.user, userData: userDataValues_ret, errors: errors});
+        res.render('landing', {user: req.user, userData: userDataValues_ret, errors: errors, wrongInput: req.body});
     })
 }
 
