@@ -25,19 +25,19 @@ html(lang='en')
                                       .row
                                           .col-sm-12.col-md-12.col-xs-12
                                               form(action='/proupdate', method='POST')
-                                                  input(placeholder='Name', required=true, name='proName', type='', value=((userData.Professional && userData.Professional.firstName)?userData.Professional.firstName:'')).form-control
+                                                  input(placeholder='Name', required=true, name='proName', type='', value=(errors? wrongInput.proName : ((userData.Professional && userData.Professional.firstName)?userData.Professional.firstName:''))).form-control
                                                   if (errors && errors.proName)
                                                       p.small.text-danger #{errors.proName}
-                                                  input(placeholder='Surname', required=true, name='proSurname', type='', value=((userData.Professional && userData.Professional.lastName)?userData.Professional.lastName:'')).form-control
+                                                  input(placeholder='Surname', required=true, name='proSurname', type='', value=(errors? wrongInput.proSurname : ((userData.Professional && userData.Professional.lastName)?userData.Professional.lastName:''))).form-control
                                                   if (errors && errors.proSurname)
                                                       p.small.text-danger #{errors.proSurname}
-                                                  input(placeholder='Profession', required=true, name='proProfession', type='', value=((userData.Professional && userData.Professional.profession)?userData.Professional.profession:'')).form-control
+                                                  input(placeholder='Profession', required=true, name='proProfession', type='', value=(errors? wrongInput.proProfession : ((userData.Professional && userData.Professional.profession)?userData.Professional.profession:''))).form-control
                                                   if (errors && errors.proProfession)
                                                       p.small.text-danger #{errors.proProfession}
-                                                  input(placeholder='Phone number', required=true, name='proNumber', type='', value=((userData.Professional && userData.Professional.phoneNumber)?userData.Professional.phoneNumber:'')).form-control
+                                                  input(placeholder='Phone number', required=true, name='proNumber', type='', value=(errors? wrongInput.proNumber : ((userData.Professional && userData.Professional.phoneNumber)?userData.Professional.phoneNumber:''))).form-control
                                                   if (errors && errors.proNumber)
                                                       p.small.text-danger #{errors.proNumber}
-                                                  input(placeholder='Description', required=false, name='proDescription', type='', value=((userData.Professional && userData.Professional.description)?userData.Professional.description:'')).form-control
+                                                  input(placeholder='Description', required=false, name='proDescription', type='', value=(errors? wrongInput.proDescription : ((userData.Professional && userData.Professional.description)?userData.Professional.description:''))).form-control
                                                   if (errors && errors.proDescription)
                                                       p.small.text-danger #{errors.proDescription}
                                                   button.mt-3.btn.btn-primary(type='submit') Update
